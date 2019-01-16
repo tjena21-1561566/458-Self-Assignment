@@ -1,0 +1,25 @@
+---
+title: "Loading the Data"
+author: "Andy Tseng"
+date: "January 14, 2019"
+output: html_document
+---
+## This is how to load data into R and how to convert it
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r echo=TRUE}
+library(tidyverse)
+object1=read.csv("China_EO_49to17.csv")
+object2=as_tibble(object1)
+desc_year <- arrange(object1, desc(Year))
+filter <- filter(desc_year, Year >= "2000")
+shang_bei_2000 <- select(filter, Year,  starts_with("Beijing"), starts_with("Shanghai"))
+ratio <- mutate(shang_bei_2000, Output_Ratio = Beijing_Output/Shanghai_Output)
+desc_year
+shang_bei_2000
+ratio
+```
+
